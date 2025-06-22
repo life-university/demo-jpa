@@ -12,8 +12,11 @@ public class JpaBasicApplication {
         ConfigurableApplicationContext context = SpringApplication.run(JpaBasicApplication.class, args);
 
         HelloJpa helloJpa = context.getBean("helloJpa", HelloJpa.class);
-        // helloJpa.helloPersist();
+        helloJpa.helloPersist();
         helloJpa.helloFind();
+        helloJpa.helloRemove();
+        helloJpa.helloUpdate();
+        helloJpa.helloFindJPQL();
 
     }
 
