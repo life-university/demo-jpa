@@ -3,6 +3,8 @@ package com.example.jpa_basic.hellojpa;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
+import java.util.Objects;
+
 @Entity
 public class Member {
 
@@ -32,5 +34,17 @@ public class Member {
             "id=" + id +
             ", name='" + name + '\'' +
             '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Member member = (Member) o;
+        return Objects.equals(id, member.id) && Objects.equals(name, member.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name);
     }
 }
