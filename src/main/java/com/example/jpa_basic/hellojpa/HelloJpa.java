@@ -108,4 +108,39 @@ public class HelloJpa {
         }
     }
 
+    public void firstLevelCache() {
+        System.out.println("HelloJpa.firstLevelCache");
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+        try {
+            Member member = new Member();
+            member.setId(1000L);
+            member.setName("Hello JPA");
+
+            // persistence context
+            System.out.println("before persist");
+            em.persist(member);
+            System.out.println("after persist");
+
+            Member find1 = em.find(Member.class, 1000L);
+            Member find2 = em.find(Member.class, 1000L);
+            Member find3 = em.find(Member.class, 1000L);
+            System.out.println("find1 = " + find1.getId() + " / " + find1.getName());
+            System.out.println("find2 = " + find2.getId() + " / " + find2.getName());
+            System.out.println("find3 = " + find3.getId() + " / " + find3.getName());
+
+            System.out.println("System.identityHashCode(find1) = " + System.identityHashCode(find1));
+            System.out.println("System.identityHashCode(find2) = " + System.identityHashCode(find2));
+            System.out.println("System.identityHashCode(find3) = " + System.identityHashCode(find3));
+
+            System.out.println("before commit");
+            em.getTransaction().commit();
+            System.out.println("after commit");
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+        } finally {
+            em.close();
+        }
+    }
+
 }
