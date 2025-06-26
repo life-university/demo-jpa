@@ -143,4 +143,56 @@ public class HelloJpa {
         }
     }
 
+    public void lazyLoading() {
+        System.out.println("HelloJpa.lazyLoading");
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+        try {
+            Member member1 = new Member();
+            member1.setId(1001L);
+            member1.setName("1001 Member");
+
+            Member member2 = new Member();
+            member2.setId(1002L);
+            member2.setName("1002 Member");
+
+            System.out.println("member1 persist");
+            em.persist(member1);
+            System.out.println("member2 persist");
+            em.persist(member2); // the insert query is not executed yet
+
+            // When you commit, the insert query is executed.
+            System.out.println("before commit");
+            em.getTransaction().commit();
+            System.out.println("after commit");
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+        } finally {
+            em.close();
+        }
+    }
+
+    // Bad usage examples
+    public void badUsage() {
+        System.out.println("HelloJpa.badUsage");
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+        try {
+            Member findMember = em.find(Member.class, 1001L);
+            // findMember = Member{id=1001, name='1001 Member'}
+            System.out.println("findMember = " + findMember);
+
+            // bad usage: JPA detects changes internally and automatically generates update queries.
+            // dirty checking
+            if (findMember.getName().equals("1001 Member")) {
+                findMember.setName("Member Name Updated");
+                em.getTransaction().commit();
+            }
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+        } finally {
+            em.close();
+        }
+    }
+
 }

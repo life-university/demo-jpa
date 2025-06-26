@@ -27,4 +27,14 @@ class HelloJpaTest {
     void firstLevelCache() {
         helloJpa.firstLevelCache();
     }
+
+    @Test
+    void lazyLoading() {
+        helloJpa.lazyLoading();
+    }
+
+    @Test
+    void badUsage() {
+        helloJpa.badUsage();
+    }
 }
