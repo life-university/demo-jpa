@@ -1,8 +1,19 @@
 package com.example.jpa_basic.hellojpa;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 
+import jakarta.persistence.Lob;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
+import jakarta.persistence.Transient;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.Date;
 import java.util.Objects;
 
 @Entity
@@ -10,7 +21,29 @@ public class Member {
 
     @Id
     private Long id;
+    @Column(name = "username", unique = true, length = 32)
     private String name;
+    private int age;
+    @Enumerated(EnumType.STRING)
+    private RoleType roleType;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdDate;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date lastModifiedDate;
+    @Lob
+    private String description;
+    @Lob
+    private byte[] blobData;
+
+    private LocalDate localDate;
+    private LocalTime localTime;
+    private LocalDateTime localDateTime;
+
+    @Transient
+    private String temporaryData; // This field will not be persisted in the database
+
+    public Member() {
+    }
 
     public Long getId() {
         return id;
@@ -28,23 +61,43 @@ public class Member {
         this.name = name;
     }
 
-    @Override
-    public String toString() {
-        return "Member{" +
-            "id=" + id +
-            ", name='" + name + '\'' +
-            '}';
+    public int getAge() {
+        return age;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
-        Member member = (Member) o;
-        return Objects.equals(id, member.id) && Objects.equals(name, member.name);
+    public void setAge(int age) {
+        this.age = age;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name);
+    public RoleType getRoleType() {
+        return roleType;
+    }
+
+    public void setRoleType(RoleType roleType) {
+        this.roleType = roleType;
+    }
+
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public Date getLastModifiedDate() {
+        return lastModifiedDate;
+    }
+
+    public void setLastModifiedDate(Date lastModifiedDate) {
+        this.lastModifiedDate = lastModifiedDate;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

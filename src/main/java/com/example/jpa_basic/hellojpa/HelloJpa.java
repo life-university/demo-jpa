@@ -94,11 +94,11 @@ public class HelloJpa {
         System.out.println("HelloJpa.helloFindJPQL");
         EntityManager em = emf.createEntityManager();
         try {
-            List<Member> findMembers = em.createQuery("select m from Member m", Member.class)
+            List<Member> findMembers = em.createQuery("select m from StudentIdentity m", Member.class)
                 .getResultList();
             System.out.println("findMembers = " + findMembers);
 
-            List<Member> findMembers2 = em.createQuery("select m from Member m where m.id >= 1", Member.class)
+            List<Member> findMembers2 = em.createQuery("select m from StudentIdentity m where m.id >= 1", Member.class)
                 .getResultList();
             System.out.println("findMembers2 = " + findMembers2);
         } catch (Exception e) {
