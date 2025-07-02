@@ -14,10 +14,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Date;
-import java.util.Objects;
 
 @Entity
-public class Member {
+public class HelloMember {
 
     @Id
     private Long id;
@@ -42,7 +41,7 @@ public class Member {
     @Transient
     private String temporaryData; // This field will not be persisted in the database
 
-    public Member() {
+    public HelloMember() {
     }
 
     public Long getId() {

@@ -20,19 +20,19 @@ public class HelloJpa {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
         try {
-            Member member = new Member();
-            member.setId(1L);
-            member.setName("Hello JPA");
+            HelloMember helloMember = new HelloMember();
+            helloMember.setId(1L);
+            helloMember.setName("Hello JPA");
 
             // Persisting the member entity
-            em.persist(member);
+            em.persist(helloMember);
 
-            Member member2 = new Member();
-            member2.setId(2L);
-            member2.setName("Hello Second");
+            HelloMember helloMember2 = new HelloMember();
+            helloMember2.setId(2L);
+            helloMember2.setName("Hello Second");
 
             // Persisting the member entity
-            em.persist(member2);
+            em.persist(helloMember2);
 
             em.getTransaction().commit();
         } catch (Exception e) {
@@ -47,8 +47,8 @@ public class HelloJpa {
         EntityManager em = emf.createEntityManager();
         try {
             // find member entity by ID
-            Member findMember = em.find(Member.class, 1L);
-            System.out.println("findMember = " + findMember.getId() + " / " + findMember.getName());
+            HelloMember findHelloMember = em.find(HelloMember.class, 1L);
+            System.out.println("findMember = " + findHelloMember.getId() + " / " + findHelloMember.getName());
         } catch (Exception e) {
             //
         } finally {
@@ -62,10 +62,10 @@ public class HelloJpa {
         em.getTransaction().begin();
         try {
             // find member entity by ID
-            Member findMember = em.find(Member.class, 1L);
+            HelloMember findHelloMember = em.find(HelloMember.class, 1L);
             // Remove the member entity
-            em.remove(findMember);
-            System.out.println("findMember = " + findMember.getId() + " / " + findMember.getName());
+            em.remove(findHelloMember);
+            System.out.println("findMember = " + findHelloMember.getId() + " / " + findHelloMember.getName());
             em.getTransaction().commit();
         } catch (Exception e) {
             em.getTransaction().rollback();
@@ -80,8 +80,8 @@ public class HelloJpa {
         em.getTransaction().begin();
         try {
             // find member entity by ID
-            Member findMember = em.find(Member.class, 2L);
-            findMember.setName("Hello IntelliJ IDEA");
+            HelloMember findHelloMember = em.find(HelloMember.class, 2L);
+            findHelloMember.setName("Hello IntelliJ IDEA");
             em.getTransaction().commit();
         } catch (Exception e) {
             em.getTransaction().rollback();
@@ -94,11 +94,11 @@ public class HelloJpa {
         System.out.println("HelloJpa.helloFindJPQL");
         EntityManager em = emf.createEntityManager();
         try {
-            List<Member> findMembers = em.createQuery("select m from StudentIdentity m", Member.class)
+            List<HelloMember> findHelloMembers = em.createQuery("select m from StudentIdentity m", HelloMember.class)
                 .getResultList();
-            System.out.println("findMembers = " + findMembers);
+            System.out.println("findMembers = " + findHelloMembers);
 
-            List<Member> findMembers2 = em.createQuery("select m from StudentIdentity m where m.id >= 1", Member.class)
+            List<HelloMember> findMembers2 = em.createQuery("select m from StudentIdentity m where m.id >= 1", HelloMember.class)
                 .getResultList();
             System.out.println("findMembers2 = " + findMembers2);
         } catch (Exception e) {
@@ -113,18 +113,18 @@ public class HelloJpa {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
         try {
-            Member member = new Member();
-            member.setId(1000L);
-            member.setName("Hello JPA");
+            HelloMember helloMember = new HelloMember();
+            helloMember.setId(1000L);
+            helloMember.setName("Hello JPA");
 
             // persistence context
             System.out.println("before persist");
-            em.persist(member);
+            em.persist(helloMember);
             System.out.println("after persist");
 
-            Member find1 = em.find(Member.class, 1000L);
-            Member find2 = em.find(Member.class, 1000L);
-            Member find3 = em.find(Member.class, 1000L);
+            HelloMember find1 = em.find(HelloMember.class, 1000L);
+            HelloMember find2 = em.find(HelloMember.class, 1000L);
+            HelloMember find3 = em.find(HelloMember.class, 1000L);
             System.out.println("find1 = " + find1.getId() + " / " + find1.getName());
             System.out.println("find2 = " + find2.getId() + " / " + find2.getName());
             System.out.println("find3 = " + find3.getId() + " / " + find3.getName());
@@ -148,18 +148,18 @@ public class HelloJpa {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
         try {
-            Member member1 = new Member();
-            member1.setId(1001L);
-            member1.setName("1001 Member");
+            HelloMember helloMember1 = new HelloMember();
+            helloMember1.setId(1001L);
+            helloMember1.setName("1001 Member");
 
-            Member member2 = new Member();
-            member2.setId(1002L);
-            member2.setName("1002 Member");
+            HelloMember helloMember2 = new HelloMember();
+            helloMember2.setId(1002L);
+            helloMember2.setName("1002 Member");
 
             System.out.println("member1 persist");
-            em.persist(member1);
+            em.persist(helloMember1);
             System.out.println("member2 persist");
-            em.persist(member2); // the insert query is not executed yet
+            em.persist(helloMember2); // the insert query is not executed yet
 
             // When you commit, the insert query is executed.
             System.out.println("before commit");
@@ -178,14 +178,14 @@ public class HelloJpa {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
         try {
-            Member findMember = em.find(Member.class, 1001L);
+            HelloMember findHelloMember = em.find(HelloMember.class, 1001L);
             // findMember = Member{id=1001, name='1001 Member'}
-            System.out.println("findMember = " + findMember);
+            System.out.println("findMember = " + findHelloMember);
 
             // bad usage: JPA detects changes internally and automatically generates update queries.
             // dirty checking
-            if (findMember.getName().equals("1001 Member")) {
-                findMember.setName("Member Name Updated");
+            if (findHelloMember.getName().equals("1001 Member")) {
+                findHelloMember.setName("Member Name Updated");
                 em.getTransaction().commit();
             }
         } catch (Exception e) {
